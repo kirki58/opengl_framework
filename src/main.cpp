@@ -1,7 +1,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
-#include "classes/Object.h"
+#include <kirkiGL/Object.h>
 
 /*
 We need to put every OpenGL function in CHECK(opengl_func) macro so we get a proper debug message from it.
@@ -9,6 +9,8 @@ MAKE SURE TO CHANGE THE MODE SPECIFIED IN THE gldebug.h TO "RELEASE" BEFORE PROD
 */
 #include <gldebug.h>
 
+float a = 5.0f;
+Object obj(&a);
 
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 800  
