@@ -1,9 +1,13 @@
-#pragma once
+#ifndef SHADER_H
+#define SHADER_H
 
 #include <glad/glad.h>
+#include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <iostream>
+#include <gldebug.h>
 
 class Shader{
     private:
@@ -20,6 +24,9 @@ class Shader{
         void setInt(const std::string &name, int value) const;
         void setFloat(const std::string &name, float value) const;
         void setMat4f(const std::string &name, glm::mat4 mat4f) const;
+        void setMat4f(const std::string &name, float* value) const;
         void setVec3f(const std::string &name, float x, float y, float z) const;
         void setVec3f(const std::string &name, glm::vec3 vector3)const;
 };
+
+#endif

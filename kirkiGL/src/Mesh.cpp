@@ -1,21 +1,15 @@
 #include <kirkiGL/Mesh.h>
 
 //Mesh Constructor
-Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures){
-    this->Vertices = vertices;
-    this->Indices = indices;
-    this->Textures = textures;
-    configMesh(GL_STATIC_DRAW);
-}
-
 Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures, unsigned int draw_type){
     this->Vertices = vertices;
     this->Indices = indices;
     this->Textures = textures;
-    configMesh(draw_type);
+    this->Draw_Type = draw_type; //todo: add customization to this.
+    configMesh();
 }
 
-void Mesh::configMesh(unsigned int draw_type){
+void Mesh::configMesh(){
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);
@@ -23,10 +17,10 @@ void Mesh::configMesh(unsigned int draw_type){
     glBindVertexArray(VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, Vertices.size() * sizeof(Vertex), Vertices.data(), draw_type);
+    glBufferData(GL_ARRAY_BUFFER, Vertices.size() * sizeof(Vertex), Vertices.data(), this->Draw_Type);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, Indices.size() * sizeof(unsigned int), Indices.data(), draw_type);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, Indices.size() * sizeof(unsigned int), Indices.data(), this->Draw_Type);
 
     //Position attributes
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*) 0);
@@ -55,7 +49,7 @@ void Mesh::Draw(Shader &program){
             tex_nr = std::to_string(diffuseNr++);
         }
         else if(Textures[i].type == 1){
-            tex_type == "specular";
+            tex_type = "specular";
             tex_nr = std::to_string(specNr++);
         }
         program.setInt(("material." + tex_type + tex_nr).c_str(), i);

@@ -1,8 +1,10 @@
-#pragma once
+#ifndef OBJECT_H
+#define OBJECT_H
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include <Shader.h>
+#include <glm/gtc/type_ptr.hpp>
+#include <kirkiGL/Shader.h>
 #include <string>
 
 enum KGL_SPACE{
@@ -21,3 +23,4 @@ class Object{
         std::string space;
         Shader* Program;
 };
+#endif

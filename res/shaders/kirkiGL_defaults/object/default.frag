@@ -60,10 +60,10 @@ in vec2 TexCoords;
 
 uniform vec3 viewPos;
 uniform Material material;
-uniform uint DirLight_Count;
-uniform uint PointLight_Count;
-uniform uint SpotLight_Count;
-uniform uint DirLight dirLights[NR_DIR_LIGHTS];
+uniform int DirLight_Count;
+uniform int PointLight_Count;
+uniform int SpotLight_Count;
+uniform DirLight dirLights[NR_DIR_LIGHTS];
 uniform PointLight pointLights[NR_POINT_LIGHTS];
 uniform SpotLight spotLights[NR_SPOT_LIGHTS];
 

@@ -1,7 +1,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
-#include <kirkiGL/Object.h>
+#include <kirkiGL/Model.h>
+#include <kirkiGL/Shader.h>
 
 /*
 We need to put every OpenGL function in CHECK(opengl_func) macro so we get a proper debug message from it.
@@ -9,11 +10,10 @@ MAKE SURE TO CHANGE THE MODE SPECIFIED IN THE gldebug.h TO "RELEASE" BEFORE PROD
 */
 #include <gldebug.h>
 
-float a = 5.0f;
-Object obj(&a);
-
 #define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 800  
+#define WINDOW_HEIGHT 800
+
+Shader program("res/shaders/kirkiGL_defaults/object/default.vert", "res/shaders/kirkiGL_defaults/object/default.frag");
 int main(void)
 {
 
@@ -25,7 +25,7 @@ int main(void)
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //WE DON'T WANT OUR APPLICATION TO BE BACKWARDS COMPATIBLE (3.3+) SO WE USE CORE PROFILE
     GLFWwindow* window;
 
-    // Checl initialize GLFW3
+    // Check initialize GLFW3
     if (!glfwInit()){
         std::cout << "Failed to Initialize GLFW" << std::endl;
         return -1;
@@ -46,12 +46,15 @@ int main(void)
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
+    Model backpack("../res/models/backpack/backpack.obj", glm::vec3(0.0f, 0.0f, 0.0f), program);
 
     //Frame loop
     while (!glfwWindowShouldClose(window))
     {
         /* Render here */
         CHECK(glClear(GL_COLOR_BUFFER_BIT));
+        program.use();
+        backpack.Draw(program);
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
